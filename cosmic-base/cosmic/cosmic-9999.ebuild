@@ -9,6 +9,9 @@ RDEPEND="
 	media-fonts/fira-mono
 	media-fonts/fira-sans
 	media-fonts/roboto
+
+	cosmic-base/cosmic-comp
+	cosmic-base/cosmic-session
 "
 	# cosmic-base/pop-gtk-theme
 	# cosmic-base/pop-icon-theme
@@ -16,7 +19,6 @@ RDEPEND="
 	# cosmic-base/cosmic-applets
 	# cosmic-base/cosmic-applibrary
 	# cosmic-base/cosmic-bg
-	# cosmic-base/cosmic-comp
 	# cosmic-base/cosmic-edit
 	# cosmic-base/cosmic-files
 	# cosmic-base/cosmic-icons
@@ -26,7 +28,6 @@ RDEPEND="
 	# cosmic-base/cosmic-panel
 	# cosmic-base/cosmic-randr
 	# cosmic-base/cosmic-screenshot
-	# cosmic-base/cosmic-session
 	# cosmic-base/cosmic-settings
 	# cosmic-base/cosmic-term
 	# cosmic-base/cosmic-workspaces

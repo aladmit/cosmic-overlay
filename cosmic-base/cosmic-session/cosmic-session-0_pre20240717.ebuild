@@ -51,7 +51,7 @@ src_unpack() {
 }
 
 src_configure() {
-	mv "${WORKDIR}/config" "${CARGO_HOME}/"
+	mv "${WORKDIR}/config" "${CARGO_HOME}/" || die
 	cargo_src_configure --frozen
 }
 
