@@ -6,7 +6,9 @@ DESCRIPTION="The session for the COSMIC desktop"
 HOMEPAGE="https://github.com/pop-os/cosmic-session"
 
 COMMIT="577a181122881ac5e1a2bd263edf6cd53d17b3dc"
-SRC_URI="https://github.com/pop-os/cosmic-session/archive/${COMMIT}.zip"
+SRC_URI="
+	https://github.com/pop-os/cosmic-session/archive/${COMMIT}.zip
+	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -46,8 +48,6 @@ BDEPEND="
 src_unpack() {
 	cargo_src_unpack
 	mv ${WORKDIR}/${PN}-${COMMIT}/* ${PN}-${PV}/ || die
-
-	# unpack "${FILESDIR}/${P}-vendor.tar.xz"
 }
 
 src_configure() {
