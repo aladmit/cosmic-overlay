@@ -1,6 +1,7 @@
 # cosmic-overlay
 
-Gentoo overlay with Cosmic DE
+[Gentoo](https://gentoo.org) overlay with next generation 
+[Cosmic DE](https://blog.system76.com/tags/COSMIC%20DE).
 
 ## Install
 
