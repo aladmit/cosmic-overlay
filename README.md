@@ -3,6 +3,12 @@
 [Gentoo](https://gentoo.org) overlay with next generation 
 [Cosmic DE](https://blog.system76.com/tags/COSMIC%20DE).
 
+## Status
+
+> [!WARNING]
+> Experimental. Installed environment wouldn't be functions due to lack of
+> ebuilds for all components.
+
 ## Install
 
 ### Add and sync overlay
