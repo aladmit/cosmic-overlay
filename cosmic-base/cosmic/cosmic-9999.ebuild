@@ -14,6 +14,7 @@ RDEPEND="
 	cosmic-base/cosmic-comp
 	cosmic-base/cosmic-panel
 	cosmic-base/cosmic-session
+	cosmic-base/cosmic-settings
 	cosmic-base/cosmic-settings-daemon
 "
 	# cosmic-base/pop-gtk-theme
@@ -29,7 +30,6 @@ RDEPEND="
 	# cosmic-base/cosmic-osd
 	# cosmic-base/cosmic-randr
 	# cosmic-base/cosmic-screenshot
-	# cosmic-base/cosmic-settings
 	# cosmic-base/cosmic-term
 	# cosmic-base/cosmic-workspaces
 	# cosmic-base/cosmic-xdg-desktop-portal
