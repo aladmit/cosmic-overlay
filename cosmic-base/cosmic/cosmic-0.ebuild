@@ -1,7 +1,7 @@
 EAPI=8
 
 DESCRIPTION="Meta package to install cosmic-epoch DE"
-KEYWORDS="~arm64 ~amd64"
+KEYWORDS="arm64 amd64"
 
 SLOT="0"
 
@@ -12,6 +12,7 @@ RDEPEND="
 
 	cosmic-base/cosmic-applets
 	cosmic-base/cosmic-applibrary
+	cosmic-base/cosmic-bg
 	cosmic-base/cosmic-comp
 	cosmic-base/cosmic-panel
 	cosmic-base/cosmic-session
@@ -21,7 +22,6 @@ RDEPEND="
 	# cosmic-base/pop-gtk-theme
 	# cosmic-base/pop-icon-theme
 	#
-	# cosmic-base/cosmic-bg
 	# cosmic-base/cosmic-edit
 	# cosmic-base/cosmic-files
 	# cosmic-base/cosmic-icons
