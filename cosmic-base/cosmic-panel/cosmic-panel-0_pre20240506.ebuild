@@ -5,7 +5,7 @@ inherit cargo
 DESCRIPTION="COSMIC Panel"
 HOMEPAGE="https://github.com/pop-os/cosmic-panel"
 
-COMMIT="05420b20035cdb9f2fa52517e9c5abce9e0f0bb5"
+COMMIT="683a204ef81bd17c2b35264521e5145df3518ee5"
 SRC_URI="
 	https://github.com/pop-os/cosmic-panel/archive/${COMMIT}.zip
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
@@ -14,10 +14,11 @@ ECARGO_VENDOR="${WORKDIR}/vendor"
 
 LICENSE="GPL-3.0"
 # deps
-LICENSE="0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE="0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD Boost-1.0 CC0-1.0
+GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
 SLOT="0"
 
-KEYWORDS="~arm64 ~amd64"
+KEYWORDS="arm64 amd64"
 
 COMMON_DEPEND="
 	dev-libs/wayland
