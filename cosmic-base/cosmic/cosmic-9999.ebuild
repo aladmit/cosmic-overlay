@@ -11,6 +11,7 @@ RDEPEND="
 	media-fonts/roboto
 
 	cosmic-base/cosmic-comp
+	cosmic-base/cosmic-panel
 	cosmic-base/cosmic-session
 "
 	# cosmic-base/pop-gtk-theme
@@ -25,7 +26,6 @@ RDEPEND="
 	# cosmic-base/cosmic-launcher
 	# cosmic-base/cosmic-notifications
 	# cosmic-base/cosmic-osd
-	# cosmic-base/cosmic-panel
 	# cosmic-base/cosmic-randr
 	# cosmic-base/cosmic-screenshot
 	# cosmic-base/cosmic-settings
