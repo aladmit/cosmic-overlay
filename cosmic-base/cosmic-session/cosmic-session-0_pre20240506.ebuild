@@ -5,7 +5,7 @@ inherit cargo systemd xdg
 DESCRIPTION="The session for the COSMIC desktop"
 HOMEPAGE="https://github.com/pop-os/cosmic-session"
 
-COMMIT="577a181122881ac5e1a2bd263edf6cd53d17b3dc"
+COMMIT="5613bc660649c65b4a4c3fb41605491b9765729a"
 SRC_URI="
 	https://github.com/pop-os/cosmic-session/archive/${COMMIT}.zip
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
@@ -14,12 +14,11 @@ ECARGO_VENDOR="${WORKDIR}/vendor"
 
 LICENSE="GPL-3.0"
 # deps
-LICENSE="0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD
-Boost-1.0 GPL-3.0 MIT MPL-2.0 Unicode-DFS-2016 Unlicense
-ZLIB"
+LICENSE="0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD Boost-1.0 GPL-3.0
+MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
 SLOT="0"
 
-KEYWORDS="~arm64 ~amd64"
+KEYWORDS="arm64 amd64"
 
 RDEPEND="
 	cosmic-base/cosmic-applets
