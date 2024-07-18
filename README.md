@@ -9,6 +9,10 @@
 > Experimental. Installed environment wouldn't be functions due to lack of
 > ebuilds for all components.
 
+> [!CAUTION]
+> Only systemd profiles are supported at the moment! The overlay does not have
+> units for OpenRC and has not been tested with systemd-utils.
+
 ## Install
 
 ### Add and sync overlay
