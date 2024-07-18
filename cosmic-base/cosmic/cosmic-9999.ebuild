@@ -14,6 +14,7 @@ RDEPEND="
 	cosmic-base/cosmic-comp
 	cosmic-base/cosmic-panel
 	cosmic-base/cosmic-session
+	cosmic-base/cosmic-settings-daemon
 "
 	# cosmic-base/pop-gtk-theme
 	# cosmic-base/pop-icon-theme
