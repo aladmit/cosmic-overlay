@@ -5,7 +5,7 @@ inherit cargo xdg
 DESCRIPTION="Applets for COSMIC panel"
 HOMEPAGE="https://github.com/pop-os/cosmic-applets"
 
-COMMIT="4ceac0c57ba09cce66ef4fe5dfc758768faad19f"
+COMMIT="f154c16df9695a0a39fb64e795f0e6e200f0034b"
 SRC_URI="
 	https://github.com/pop-os/cosmic-applets/archive/${COMMIT}.zip
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
@@ -14,12 +14,11 @@ ECARGO_VENDOR="${WORKDIR}/vendor"
 
 LICENSE="GPL-3.0"
 # deps
-LICENSE="0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD
-BSD-2 Boost-1.0 CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0 Unicode
-Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE="0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0
+CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0 Unicode Unicode-DFS-2016 Unlicense ZLIB"
 SLOT="0"
 
-KEYWORDS="~arm64 ~amd64"
+KEYWORDS="arm64 amd64"
 
 COMMON_DEPEND="
 	dev-libs/wayland
@@ -45,7 +44,7 @@ src_unpack() {
 }
 
 src_configure() {
-	mv "${WORKDIR}/config" "${CARGO_HOME}/" || die
+	mv "${WORKDIR}/config.toml" "${CARGO_HOME}/config" || die
 	cargo_src_configure --frozen
 }
 
@@ -96,9 +95,11 @@ src_install() {
 	dobin target/release/cosmic-applets
 	dobin target/release/cosmic-panel-button
 
-	dodir /usr/share/cosmic
 	insinto /usr/share/cosmic
 	doins -r cosmic-app-list/data/default_schema/*
+
+	# rename dir because it has typo
+	mv cosmic-applet-status-area/data/icons/scalable/app cosmic-applet-status-area/data/icons/scalable/apps || die
 
 	_install_button 'com.system76.CosmicPanelAppButton' 'cosmic-panel-app-button'
 	_install_button 'com.system76.CosmicPanelLauncherButton' 'cosmic-panel-launcher-button'
@@ -108,7 +109,6 @@ src_install() {
 	_install_applet 'com.system76.CosmicAppletAudio' 'cosmic-applet-audio'
 	_install_applet 'com.system76.CosmicAppletBattery' 'cosmic-applet-battery'
 	_install_applet 'com.system76.CosmicAppletBluetooth' 'cosmic-applet-bluetooth'
-	_install_applet 'com.system76.CosmicAppletInputSources' 'cosmic-applet-input-sources'
 	_install_applet 'com.system76.CosmicAppletMinimize' 'cosmic-applet-minimize'
 	_install_applet 'com.system76.CosmicAppletNetwork' 'cosmic-applet-network'
 	_install_applet 'com.system76.CosmicAppletNotifications' 'cosmic-applet-notifications'
