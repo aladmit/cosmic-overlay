@@ -21,6 +21,7 @@ RDEPEND="
 	cosmic-base/cosmic-notifications
 	cosmic-base/cosmic-osd
 	cosmic-base/cosmic-panel
+	cosmic-base/cosmic-randr
 	cosmic-base/cosmic-session
 	cosmic-base/cosmic-settings
 	cosmic-base/cosmic-settings-daemon
@@ -28,7 +29,6 @@ RDEPEND="
 	# cosmic-base/pop-gtk-theme
 	# cosmic-base/pop-icon-theme
 	#
-	# cosmic-base/cosmic-randr
 	# cosmic-base/cosmic-screenshot
 	# cosmic-base/cosmic-term
 	# cosmic-base/cosmic-workspaces
