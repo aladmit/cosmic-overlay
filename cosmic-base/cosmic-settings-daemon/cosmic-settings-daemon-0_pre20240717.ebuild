@@ -21,11 +21,9 @@ SLOT="0"
 
 KEYWORDS="~arm64 ~amd64"
 
-# https://github.com/lassekongo83/adw-gtk3
-# instead of libadwaita?
 RDEPEND="
 	sys-power/acpid
-	gui-libs/libadwaita
+	x11-themes/adw-gtk3
 	app-misc/geoclue
 "
 
