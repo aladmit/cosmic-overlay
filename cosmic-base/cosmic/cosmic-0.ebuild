@@ -30,5 +30,3 @@ RDEPEND="
 	cosmic-base/cosmic-workspaces
 	cosmic-base/xdg-desktop-portal-cosmic
 "
-	# cosmic-base/pop-gtk-theme
-	# cosmic-base/pop-icon-theme

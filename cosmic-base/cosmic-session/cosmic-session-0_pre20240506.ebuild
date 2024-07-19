@@ -36,9 +36,8 @@ RDEPEND="
 	cosmic-base/cosmic-settings
 	cosmic-base/cosmic-settings-daemon
 	cosmic-base/cosmic-workspaces
-	cosmic-base/cosmic-xdg-desktop-portal
-	cosmic-base/pop-gtk-theme
-	cosmic-base/pop-icon-theme
+	cosmic-base/xdg-desktop-portal-cosmic
+	x11-themes/pop-icon-theme
 	x11-base/xwayland
 "
 
