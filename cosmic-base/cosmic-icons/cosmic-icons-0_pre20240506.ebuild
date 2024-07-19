@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="arm64 amd64"
 
 RDEPEND="
-	cosmic-base/pop-icon-theme
+	x11-themes/pop-icon-theme
 "
 
 src_preinst() {
