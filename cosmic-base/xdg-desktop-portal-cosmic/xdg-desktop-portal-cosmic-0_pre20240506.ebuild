@@ -48,6 +48,7 @@ src_preinst() {
 }
 
 src_install() {
+	into /usr/libexec
 	dobin target/release/xdg-desktop-portal-cosmic
 
 	insinto /usr/share/dbus-1/services
