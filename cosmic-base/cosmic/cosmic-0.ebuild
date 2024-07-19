@@ -28,8 +28,7 @@ RDEPEND="
 	cosmic-base/cosmic-settings-daemon
 	cosmic-base/cosmic-term
 	cosmic-base/cosmic-workspaces
+	cosmic-base/xdg-desktop-portal-cosmic
 "
 	# cosmic-base/pop-gtk-theme
 	# cosmic-base/pop-icon-theme
-	#
-	# cosmic-base/cosmic-xdg-desktop-portal
