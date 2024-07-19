@@ -51,8 +51,8 @@ src_install() {
 
 	for plugin in "${plugins[@]}"
 	do
-		insinto /usr/lib/pop-launcher/plugins
-		doins -r plugins/src/${plugin}/*.ron
+		insinto /usr/lib/pop-launcher/plugins/${plugin}
+		doins plugins/src/${plugin}/plugin.ron
 		dosym /usr/bin/pop-launcher /usr/lib/pop-launcher/plugins/${plugin}/$(echo ${plugin} | sed 's/_/-/')
 	done
 
