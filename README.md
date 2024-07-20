@@ -1,17 +1,15 @@
 # cosmic-overlay
 
 [Gentoo](https://gentoo.org) overlay with next generation 
-[Cosmic DE](https://blog.system76.com/tags/COSMIC%20DE).
+[COSMIC DE](https://blog.system76.com/tags/COSMIC%20DE). This DE is in
+**pre-alpha** stage, but already usable for daily driving.
 
-## Status
-
-> [!WARNING]
-> Experimental. Installed environment wouldn't be functions due to lack of
-> ebuilds for all components.
+**Overlay status**: stable ebuilds install functional DE with a few minor
+issues. Installation was tested only on aarch64 platform, but should work on
+amd64 too.
 
 > [!CAUTION]
-> Only systemd profiles are supported at the moment! The overlay does not have
-> units for OpenRC and has not been tested with systemd-utils.
+> Overlay supports only **systemd** profiles at the moment!
 
 ## Install
 
@@ -23,6 +21,9 @@ emaint sync -r cosmic-overlay
 ```
 
 ### Install cosmic DE
+
+Stable ebuilds(amd64, arm64) install version from [cosmic-epoch](https://github.com/pop-os/cosmic-epoch)
+repo which I consider stable.
 
 ```bash
 emerge -av cosmic-base/cosmic
