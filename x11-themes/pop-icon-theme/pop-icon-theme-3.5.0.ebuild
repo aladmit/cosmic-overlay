@@ -5,7 +5,9 @@ inherit meson xdg
 DESCRIPTION="System76 Pop icon theme"
 HOMEPAGE="https://github.com/pop-os/icon-theme"
 
-SRC_URI="https://github.com/pop-os/icon-theme/archive/refs/tags/v${PV}.zip -> ${P}.zip"
+SRC_URI="https://github.com/pop-os/icon-theme/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+
+S="${WORKDIR}/icon-theme-${PV}"
 
 LICENSE="CC-BY-4.0"
 SLOT="0"
@@ -13,8 +15,7 @@ SLOT="0"
 KEYWORDS="*"
 
 src_unpack() {
-	unpack ${P}.zip
-	mv "${WORKDIR}/icon-theme-${PV}/" "${WORKDIR}/${P}/" || die
+	default
 }
 
 src_configure() {
