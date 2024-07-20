@@ -4,8 +4,8 @@ set -e
 set -u
 set -o pipefail
 
-version="0_pre20240506" # version name for this revision
-latest=0                # update all submodules to latest version
+version="0_pre20240720" # version name for this revision
+latest=1                # update all submodules to latest version
 vendored=""							# string to print info about packages at the end
 
 packages=(
@@ -16,7 +16,6 @@ packages=(
 	"cosmic-edit"
 	"cosmic-files"
 	"cosmic-greeter"
-	"cosmic-icons"
 	"cosmic-launcher"
 	"cosmic-notifications"
 	"cosmic-osd"
@@ -31,8 +30,9 @@ packages=(
 	"xdg-desktop-portal-cosmic"
 )
 
-rm -rf cosmic-epoch
+rm -rf cosmic-epoch vendored
 git clone --recurse-submodules git@github.com:pop-os/cosmic-epoch.git
+mkdir vendored
 
 cd cosmic-epoch
 if [ $latest -eq 1 ]; then
@@ -44,9 +44,10 @@ do
 	cd $p/
 		cargo vendor | head -n -0 > config.toml
 		XZ_OPT='-T0 -8' tar -acf "${p}-${version}-vendor.tar.xz" vendor config.toml
+		mv "${p}-${version}-vendor.tar.xz" ../../vendored/
 		rm -rf vendor config.toml
 		vendored+="${p}\t$(git rev-parse HEAD)\n"
 	cd ../
 done
 
-printf $vendored | column --table --table-columns "PACKAGE, COMMIT" -s $'\t'
+printf $vendored | column --table --table-columns "PACKAGE, COMMIT" -s $'\t' | tee ../vendored/index

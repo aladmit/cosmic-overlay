@@ -34,6 +34,8 @@ RDEPEND="
 
 IDEPEND="dev-build/just"
 
+PATCHES=( "${FILESDIR}/${PN}-${PV}-just.patch" )
+
 src_unpack() {
 	cargo_src_unpack
 }

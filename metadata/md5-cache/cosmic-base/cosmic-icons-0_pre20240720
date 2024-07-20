@@ -1,0 +1,13 @@
+DEFINED_PHASES=install postinst postrm preinst unpack
+DESCRIPTION=COSMIC Cosmic Icons
+EAPI=8
+HOMEPAGE=https://github.com/pop-os/cosmic-icons
+IDEPEND=dev-build/just dev-util/desktop-file-utils x11-misc/shared-mime-info
+INHERIT=xdg
+KEYWORDS=*
+LICENSE=GPL-3 CC-BY-SA-4.0
+RDEPEND=x11-themes/pop-icon-theme
+SLOT=0
+SRC_URI=https://github.com/pop-os/cosmic-icons/archive/73be037ba266b08a2fa7b544d78e7f143a2894c5.tar.gz -> cosmic-icons-0_pre20240720.tar.gz
+_eclasses_=xdg-utils	baea6080dd821f5562d715887954c9d3	xdg	4a14c5c24f121e7da66e5aab4a168c6e
+_md5_=8590e007e8e7064abff9601762c059b4

@@ -1,0 +1,13 @@
+# for some reason it doesn't work with absolute links
+
+index 623e08b..a4348bc 100644
+--- a/justfile
++++ b/justfile
+@@ -60,7 +60,7 @@ install_plugins:
+         dest={{plugin_dir}}${plugin}
+         mkdir -p ${dest}
+         install -Dm0644 plugins/src/${plugin}/*.ron ${dest}
+-        ln -sf {{bin_path}} {{plugin_dir}}${plugin}/$(echo ${plugin} | sed 's/_/-/')
++        ln -srf {{bin_path}} {{plugin_dir}}${plugin}/$(echo ${plugin} | sed 's/_/-/')
+     done
+ 
