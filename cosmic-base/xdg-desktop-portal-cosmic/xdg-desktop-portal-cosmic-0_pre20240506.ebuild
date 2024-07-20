@@ -48,8 +48,9 @@ src_preinst() {
 }
 
 src_install() {
-	into /usr/libexec
-	dobin target/release/xdg-desktop-portal-cosmic
+	insinto /usr/libexec
+	doins target/release/xdg-desktop-portal-cosmic
+	fperms +x /usr/libexec/xdg-desktop-portal-cosmic
 
 	insinto /usr/share/dbus-1/services
 	doins data/org.freedesktop.impl.portal.desktop.cosmic.service
