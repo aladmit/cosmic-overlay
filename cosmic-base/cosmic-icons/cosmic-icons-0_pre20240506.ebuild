@@ -6,18 +6,19 @@ DESCRIPTION="COSMIC Cosmic Icons"
 HOMEPAGE="https://github.com/pop-os/cosmic-icons"
 
 COMMIT="f48101c38db7e725d31591ec49896a2f525886e2"
-SRC_URI="https://github.com/pop-os/cosmic-icons/archive/${COMMIT}.zip"
+SRC_URI="https://github.com/pop-os/cosmic-icons/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz"
 
-ECARGO_VENDOR="${WORKDIR}/vendor"
+S="${WORKDIR}/${PN}-${COMMIT}"
 
-LICENSE="GPL-3.0 CC-BY-SA-4.0"
+LICENSE="GPL-3 CC-BY-SA-4.0"
+
 SLOT="0"
 
-KEYWORDS="arm64 amd64"
+KEYWORDS="*"
 
-RDEPEND="
-	x11-themes/pop-icon-theme
-"
+IDEPEND="dev-build/just"
+
+RDEPEND="x11-themes/pop-icon-theme"
 
 src_preinst() {
 	xdg_pkg_preinst
@@ -25,14 +26,10 @@ src_preinst() {
 
 src_unpack() {
 	unpack ${A}
-	mv "${WORKDIR}/${PN}-${COMMIT}" "${WORKDIR}/${P}" || die
 }
 
 src_install() {
-	insinto /usr/share/icons/Cosmic
-	doins -r freedesktop/scalable
-	doins -r extra/scalable
-	doins index.theme
+	just prefix="${D}/usr" install
 }
 
 src_postinst() {
