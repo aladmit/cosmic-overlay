@@ -1,0 +1,15 @@
+BDEPEND=>=virtual/rust-1.75.0 dev-libs/wayland dev-util/intltool dev-util/pkgconf x11-libs/libxkbcommon >=virtual/rust-1.53
+DEFINED_PHASES=compile configure install postinst postrm preinst test unpack
+DESCRIPTION=COSMIC Launcher
+EAPI=8
+HOMEPAGE=https://github.com/pop-os/cosmic-launcher
+IDEPEND=dev-build/just dev-util/desktop-file-utils x11-misc/shared-mime-info
+INHERIT=cargo xdg
+IUSE=debug
+KEYWORDS=amd64 arm64
+LICENSE=GPL-3 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB
+RDEPEND=cosmic-base/pop-launcher
+SLOT=0
+SRC_URI=https://github.com/pop-os/cosmic-launcher/archive/7752b9b09e4d14c4fc142f4e41cf6d633d51c1a5.tar.gz -> cosmic-launcher-0_pre20240506.tar.gz https://github.com/aladmit/cosmic-overlay/releases/download/0_pre20240506/cosmic-launcher-0_pre20240506-vendor.tar.xz
+_eclasses_=toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	flag-o-matic	e503ea5acc20410237ba33ec3f7c857d	multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	rust-toolchain	68a6453cb41148db1da01fa2267527f0	cargo	67ea64209e3442a3a0e095f048d43a62	xdg-utils	baea6080dd821f5562d715887954c9d3	xdg	4a14c5c24f121e7da66e5aab4a168c6e
+_md5_=4c8dfad12315569676c083cf032febc2
