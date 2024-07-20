@@ -1,24 +1,26 @@
 EAPI=8
 
-inherit cargo systemd xdg
+inherit cargo xdg
 
 DESCRIPTION="The session for the COSMIC desktop"
 HOMEPAGE="https://github.com/pop-os/cosmic-session"
 
 COMMIT="5613bc660649c65b4a4c3fb41605491b9765729a"
 SRC_URI="
-	https://github.com/pop-os/cosmic-session/archive/${COMMIT}.zip
+	https://github.com/pop-os/cosmic-session/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
-ECARGO_VENDOR="${WORKDIR}/vendor"
+S="${WORKDIR}/${PN}-${COMMIT}"
 
-LICENSE="GPL-3.0"
+LICENSE="GPL-3"
 # deps
-LICENSE="0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD Boost-1.0 GPL-3.0
-MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
+BSD Boost-1.0 GPL-3 MIT MPL-2.0 Unicode-DFS-2016 Unlicense
+ZLIB"
+
 SLOT="0"
 
-KEYWORDS="arm64 amd64"
+KEYWORDS="amd64 arm64"
 
 RDEPEND="
 	cosmic-base/cosmic-applets
@@ -41,18 +43,18 @@ RDEPEND="
 	x11-base/xwayland
 "
 
-BDEPEND="
-	>=virtual/rust-1.70.0
-"
+BDEPEND=">=virtual/rust-1.70.0"
+IDEPEND="dev-build/just"
+
+ECARGO_VENDOR="${WORKDIR}/vendor"
 
 src_unpack() {
 	cargo_src_unpack
-	mv ${WORKDIR}/${PN}-${COMMIT}/* ${PN}-${PV}/ || die
 }
 
 src_configure() {
 	mv "${WORKDIR}/config.toml" "${CARGO_HOME}/config" || die
-	cargo_src_configure --frozen
+	cargo_src_configure
 }
 
 src_compile() {
@@ -64,17 +66,7 @@ src_preinst() {
 }
 
 src_install() {
-	cargo_src_install
-	dobin data/start-cosmic
-
-	systemd_douserunit data/cosmic-session.target
-
-	insopts -m 0644
-	insinto /usr/share/wayland-sessions
-	doins data/cosmic.desktop
-
-	insinto /usr/share/applications
-	doins data/cosmic-mimeapps.list
+	just prefix="${D}/usr" etcdir="${D}/etc" install
 }
 
 src_postinst() {
@@ -84,4 +76,3 @@ src_postinst() {
 src_postrm() {
 	xdg_pkg_postrm
 }
-
