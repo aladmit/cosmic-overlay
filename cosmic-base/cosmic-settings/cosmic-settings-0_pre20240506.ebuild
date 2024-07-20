@@ -84,10 +84,10 @@ src_install() {
 	doins resources/polkit-1/rules.d/cosmic-settings.rules
 
 	insinto /usr/share/cosmic
-	doins -r resources/default_schema/
+	doins -r resources/default_schema/*
 
 	insinto /usr/share/icons/hicolor
-	doins -r resources/icons/
+	doins -r resources/icons/*
 }
 
 src_postinst() {
