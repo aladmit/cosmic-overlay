@@ -7,18 +7,20 @@ HOMEPAGE="https://github.com/pop-os/cosmic-panel"
 
 COMMIT="683a204ef81bd17c2b35264521e5145df3518ee5"
 SRC_URI="
-	https://github.com/pop-os/cosmic-panel/archive/${COMMIT}.zip
+	https://github.com/pop-os/cosmic-panel/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
-ECARGO_VENDOR="${WORKDIR}/vendor"
+S="${WORKDIR}/${PN}-${COMMIT}"
 
-LICENSE="GPL-3.0"
+LICENSE="GPL-3"
 # deps
-LICENSE="0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD Boost-1.0 CC0-1.0
-GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
+BSD Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016
+Unlicense ZLIB"
+
 SLOT="0"
 
-KEYWORDS="arm64 amd64"
+KEYWORDS="amd64 arm64"
 
 COMMON_DEPEND="
 	dev-libs/wayland
@@ -41,14 +43,17 @@ BDEPEND="${COMMON_DEPEND}
 	x11-libs/pixman
 "
 
+IDEPEND="dev-build/just"
+
+ECARGO_VENDOR="${WORKDIR}/vendor"
+
 src_unpack() {
 	cargo_src_unpack
-	mv ${WORKDIR}/${PN}-${COMMIT}/* ${PN}-${PV}/ || die
 }
 
 src_configure() {
 	mv "${WORKDIR}/config.toml" "${CARGO_HOME}/config" || die
-	cargo_src_configure --frozen
+	cargo_src_configure
 }
 
 src_compile() {
@@ -56,9 +61,5 @@ src_compile() {
 }
 
 src_install() {
-	cargo_src_install --path cosmic-panel-bin
-
-	dodir /usr/share/cosmic
-	insinto /usr/share/cosmic
-	doins -r data/default_schema/*
+	just prefix="${D}/usr" install
 }
