@@ -22,6 +22,9 @@ SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
+BDEPEND=">=virtual/rust-1.70.0"
+IDEPEND="dev-build/just"
+
 RDEPEND="
 	cosmic-base/cosmic-applets
 	cosmic-base/cosmic-applibrary
@@ -39,12 +42,10 @@ RDEPEND="
 	cosmic-base/cosmic-settings-daemon
 	cosmic-base/cosmic-workspaces
 	cosmic-base/xdg-desktop-portal-cosmic
-	x11-themes/pop-icon-theme
+	sys-power/upower
 	x11-base/xwayland
+	x11-themes/pop-icon-theme
 "
-
-BDEPEND=">=virtual/rust-1.70.0"
-IDEPEND="dev-build/just"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
