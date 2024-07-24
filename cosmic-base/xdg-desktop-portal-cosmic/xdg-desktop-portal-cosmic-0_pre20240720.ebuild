@@ -24,13 +24,15 @@ KEYWORDS="~amd64 ~arm64"
 
 BDEPEND="
 	>=virtual/rust-1.75.0
-	sys-devel/clang
 	dev-libs/wayland
 	dev-util/pkgconf
 	media-libs/mesa[opengl]
 	media-video/pipewire
+	sys-devel/clang
 	x11-libs/libxkbcommon
 "
+
+RDEPEND="sys-auth/rtkit"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
