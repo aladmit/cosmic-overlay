@@ -23,9 +23,23 @@ emaint sync -r cosmic-overlay
 ### Install cosmic DE
 
 Stable ebuilds(amd64, arm64) install version from [cosmic-epoch](https://github.com/pop-os/cosmic-epoch)
-repo which I consider stable.
+repo which I consider stable. Testing ebuilds(~amd64, ~arm64) install fresher
+version.
 
 ```bash
 emerge -av cosmic-base/cosmic
 ```
 
+## Known issues
+
+### No icons in Files
+
+It happens when cosmic renders using `opengl/gles`. Force vulkan render by
+setting systemd-wide environment variable.
+[cosmic-files#61](https://github.com/pop-os/cosmic-files/issues/61)
+
+`/etc/env.d/99local`
+
+```
+WGPU_BACKEND=vulkan
+```
