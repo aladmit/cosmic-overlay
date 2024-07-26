@@ -27,7 +27,7 @@ BDEPEND="
 	dev-libs/libinput
 	dev-libs/wayland
 	dev-util/pkgconf
-	media-libs/mesa[opengl]
+	media-libs/mesa[opengl,wayland]
 	virtual/udev
 	x11-libs/libxkbcommon
 "

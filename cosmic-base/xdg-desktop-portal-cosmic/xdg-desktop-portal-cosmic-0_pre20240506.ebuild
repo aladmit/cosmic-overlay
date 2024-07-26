@@ -26,7 +26,7 @@ BDEPEND="
 	>=virtual/rust-1.75.0
 	dev-libs/wayland
 	dev-util/pkgconf
-	media-libs/mesa[opengl]
+	media-libs/mesa[opengl,wayland]
 	media-video/pipewire
 	sys-devel/clang
 	x11-libs/libxkbcommon

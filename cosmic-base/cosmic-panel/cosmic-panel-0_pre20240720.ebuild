@@ -35,7 +35,7 @@ BDEPEND="${COMMON_DEPEND}
 	dev-util/desktop-file-utils
 	dev-util/pkgconf
 	media-libs/fontconfig
-	media-libs/mesa
+	media-libs/mesa[wayland]
 	sys-apps/systemd
 	sys-auth/seatd
 	virtual/udev
