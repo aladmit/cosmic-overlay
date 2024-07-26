@@ -32,7 +32,7 @@ RDEPEND="
 # add use mold
 # sys-devel/mold
 BDEPEND="
-	>=virtual/rust-1.75.0
+	>=virtual/rust-1.79.0
 	dev-libs/expat
 	dev-libs/libinput
 	dev-libs/wayland
