@@ -38,7 +38,7 @@ src_unpack() {
 
 src_configure() {
 	mv "${WORKDIR}/config.toml" "${CARGO_HOME}/config" || die
-	cargo_src_configure --frozen
+	cargo_src_configure
 }
 
 src_compile() {

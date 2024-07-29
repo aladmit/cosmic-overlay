@@ -2,12 +2,12 @@ EAPI=8
 
 inherit cargo xdg
 
-DESCRIPTION="COSMIC App Library"
-HOMEPAGE="https://github.com/pop-os/cosmic-applibrary"
+DESCRIPTION="Applets for COSMIC panel"
+HOMEPAGE="https://github.com/pop-os/cosmic-applets"
 
-COMMIT="08edc89ef035f1638358e64bd8b5170e65673b51"
+COMMIT="10b69b07c21e1037b5111f2ed23fa9e4831983ac"
 SRC_URI="
-	https://github.com/pop-os/cosmic-applibrary/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-applets/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
@@ -19,14 +19,26 @@ CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
-KEYWORDS="amd64 arm64"
+KEYWORDS="~amd64 ~arm64"
 
 BDEPEND="
-	dev-libs/wayland
-	x11-libs/libxkbcommon
 	>=virtual/rust-1.75.0
+	dev-build/just
+	dev-libs/libinput
+	dev-libs/wayland
 	dev-util/pkgconf
+	media-libs/libpulse
+	media-libs/mesa[opengl]
+	sys-apps/dbus
+	virtual/udev
+	x11-libs/libxkbcommon
 "
+
+RDEPEND="
+	cosmic-base/cosmic-icons
+"
+
+PATCHES=( "${FILESDIR}/${PN}-${PV}-just.patch" )
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -40,6 +52,8 @@ src_configure() {
 }
 
 src_compile() {
+	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
+	export VERGEN_GIT_SHA=${COMMIT}
 	cargo_src_compile
 }
 
@@ -48,6 +62,8 @@ src_preinst() {
 }
 
 src_install() {
+	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
+	export VERGEN_GIT_SHA=${COMMIT}
 	just prefix="${D}/usr" install
 }
 

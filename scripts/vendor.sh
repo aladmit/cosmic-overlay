@@ -4,7 +4,7 @@ set -e
 set -u
 set -o pipefail
 
-version="0_pre20240720" # version name for this revision
+version="0_pre20240728" # version name for this revision
 latest=1                # update all submodules to latest version
 vendored=""							# string to print info about packages at the end
 

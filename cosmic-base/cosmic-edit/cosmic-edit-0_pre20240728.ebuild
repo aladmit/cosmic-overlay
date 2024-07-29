@@ -1,34 +1,31 @@
 EAPI=8
 
-inherit cargo
+inherit cargo xdg
 
-DESCRIPTION="Display and configure wayland display outputs"
-HOMEPAGE="https://github.com/pop-os/cosmic-randr"
+DESCRIPTION="COSMIC Text Editor"
+HOMEPAGE="https://github.com/pop-os/cosmic-edit"
 
-COMMIT="e214fe92036b902f15098277de1e1be76b7b2e85"
+COMMIT="33d6522438838e53472d5e98fe23dbd07e6990f1"
 SRC_URI="
-	https://github.com/pop-os/cosmic-randr/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-edit/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
 
 LICENSE="GPL-3"
 # deps
-LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="~amd64 ~arm64"
 
-# TODO: add optional mold
 BDEPEND="
-	>=virtual/rust-1.75.0
-	dev-libs/wayland
+	>=virtual/rust-1.71.0
+	dev-build/just
 	dev-util/pkgconf
+	x11-libs/libxkbcommon
 "
-
-IDEPEND="dev-build/just"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -47,8 +44,20 @@ src_compile() {
 	cargo_src_compile
 }
 
+src_preinst() {
+	xdg_pkg_preinst
+}
+
 src_install() {
 	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
 	export VERGEN_GIT_SHA=${COMMIT}
 	just prefix="${D}/usr" install
+}
+
+src_postinst() {
+	xdg_pkg_postinst
+}
+
+src_postrm() {
+	xdg_pkg_postrm
 }

@@ -2,12 +2,12 @@ EAPI=8
 
 inherit cargo
 
-DESCRIPTION="Display and configure wayland display outputs"
-HOMEPAGE="https://github.com/pop-os/cosmic-randr"
+DESCRIPTION="COSMIC Panel"
+HOMEPAGE="https://github.com/pop-os/cosmic-panel"
 
-COMMIT="e214fe92036b902f15098277de1e1be76b7b2e85"
+COMMIT="49a40f0c52931a0d32a25382d169befd55c573f5"
 SRC_URI="
-	https://github.com/pop-os/cosmic-randr/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-panel/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
@@ -15,17 +15,19 @@ S="${WORKDIR}/${PN}-${COMMIT}"
 LICENSE="GPL-3"
 # deps
 LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
+BSD Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016
+Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="~amd64 ~arm64"
 
-# TODO: add optional mold
 BDEPEND="
-	>=virtual/rust-1.75.0
+	>=virtual/rust-1.70.0
 	dev-libs/wayland
+	dev-util/desktop-file-utils
 	dev-util/pkgconf
+	x11-libs/libxkbcommon
 "
 
 IDEPEND="dev-build/just"
