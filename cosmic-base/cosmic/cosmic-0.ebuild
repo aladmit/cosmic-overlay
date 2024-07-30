@@ -6,10 +6,6 @@ KEYWORDS="arm64 amd64"
 SLOT="0"
 
 RDEPEND="
-	media-fonts/fira-mono
-	media-fonts/fira-sans
-	media-fonts/roboto
-
 	cosmic-base/cosmic-applets
 	cosmic-base/cosmic-applibrary
 	cosmic-base/cosmic-bg
