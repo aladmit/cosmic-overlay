@@ -50,6 +50,8 @@ RDEPEND="
 	x11-themes/pop-icon-theme
 "
 
+PATCHES=( "${FILESDIR}/${PN}-${PV}-just.patch" )
+
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
 src_unpack() {
@@ -57,13 +59,21 @@ src_unpack() {
 }
 
 src_configure() {
-	mv "${WORKDIR}/config.toml" "${CARGO_HOME}/config" || die
 	cargo_src_configure
+
+	# use vendored crates
+	sed -i "${ECARGO_HOME}/config.toml" -e '/source.gentoo/d'  || die
+	sed -i "${ECARGO_HOME}/config.toml" -e '/directory = .*/d'  || die
+	sed -i "${ECARGO_HOME}/config.toml" -e '/source.crates-io/d'  || die
+sed -i "${ECARGO_HOME}/config.toml" -e '/replace-with = "gentoo"/d'  || die
+sed -i "${ECARGO_HOME}/config.toml" -e '/local-registry = "\/nonexistent"/d'  || die
+	cat "${WORKDIR}/config.toml" >> "${ECARGO_HOME}/config.toml" || die
 }
 
 src_compile() {
 	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
 	export VERGEN_GIT_SHA=${COMMIT}
+
 	cargo_src_compile
 }
 
@@ -72,9 +82,11 @@ src_preinst() {
 }
 
 src_install() {
-	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
-	export VERGEN_GIT_SHA=${COMMIT}
-	just prefix="${D}/usr" etcdir="${D}/etc" install
+	just \
+		prefix="${D}/usr" \
+		etcdir="${D}/etc" \
+		cargo-target-dir="$(cargo_target_dir)" \
+		install || die
 }
 
 src_postinst() {

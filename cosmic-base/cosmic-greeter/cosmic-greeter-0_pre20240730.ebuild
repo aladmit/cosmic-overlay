@@ -37,6 +37,8 @@ RDEPEND="
 	cosmic-base/cosmic-comp
 	gui-libs/greetd
 	sys-apps/dbus
+	acct-user/cosmic-greeter
+	acct-group/cosmic-greeter
 "
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
@@ -46,21 +48,27 @@ src_unpack() {
 }
 
 src_configure() {
-	mv "${WORKDIR}/config.toml" "${CARGO_HOME}/config" || die
 	cargo_src_configure
+
+	# use vendored crates
+	sed -i "${ECARGO_HOME}/config.toml" -e '/source.gentoo/d'  || die
+	sed -i "${ECARGO_HOME}/config.toml" -e '/directory = .*/d'  || die
+	sed -i "${ECARGO_HOME}/config.toml" -e '/source.crates-io/d'  || die
+sed -i "${ECARGO_HOME}/config.toml" -e '/replace-with = "gentoo"/d'  || die
+sed -i "${ECARGO_HOME}/config.toml" -e '/local-registry = "\/nonexistent"/d'  || die
+	cat "${WORKDIR}/config.toml" >> "${ECARGO_HOME}/config.toml" || die
 }
 
 src_compile() {
 	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
 	export VERGEN_GIT_SHA=${COMMIT}
+
 	cargo_src_compile --all
 }
 
 src_install() {
-	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
-	export VERGEN_GIT_SHA=${COMMIT}
-	dobin target/release/cosmic-greeter
-	dobin target/release/cosmic-greeter-daemon
+	dobin "$(cargo_target_dir)/cosmic-greeter"
+	dobin "$(cargo_target_dir)/cosmic-greeter-daemon"
 
 	insinto /usr/share/dbus-1/system.d
 	doins dbus/com.system76.CosmicGreeter.conf
