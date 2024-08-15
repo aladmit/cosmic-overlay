@@ -2,12 +2,12 @@ EAPI=8
 
 inherit cargo xdg
 
-DESCRIPTION="The session for the COSMIC desktop"
-HOMEPAGE="https://github.com/pop-os/cosmic-session"
+DESCRIPTION="COSMIC backend for xdg-desktop-portal"
+HOMEPAGE="https://github.com/pop-os/xdg-desktop-portal-cosmic"
 
-COMMIT="577a181122881ac5e1a2bd263edf6cd53d17b3dc"
+COMMIT="41c1e7cfd0779db6005fc64798ac75b630332678"
 SRC_URI="
-	https://github.com/pop-os/cosmic-session/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/xdg-desktop-portal-cosmic/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
@@ -15,42 +15,23 @@ S="${WORKDIR}/${PN}-${COMMIT}"
 LICENSE="GPL-3"
 # deps
 LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-BSD Boost-1.0 GPL-3 MIT MPL-2.0 Unicode-DFS-2016 Unlicense
-ZLIB"
+BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0
+Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
-KEYWORDS="amd64 arm64"
+KEYWORDS="~amd64 ~arm64"
 
-BDEPEND=">=virtual/rust-1.70.0"
-IDEPEND="dev-build/just"
-
-RDEPEND="
-	cosmic-base/cosmic-applets
-	cosmic-base/cosmic-applibrary
-	cosmic-base/cosmic-bg
-	cosmic-base/cosmic-comp
-	cosmic-base/cosmic-greeter
-	cosmic-base/cosmic-icons
-	cosmic-base/cosmic-launcher
-	cosmic-base/cosmic-notifications
-	cosmic-base/cosmic-osd
-	cosmic-base/cosmic-panel
-	cosmic-base/cosmic-randr
-	cosmic-base/cosmic-screenshot
-	cosmic-base/cosmic-settings
-	cosmic-base/cosmic-settings-daemon
-	cosmic-base/cosmic-workspaces
-	cosmic-base/xdg-desktop-portal-cosmic
-	media-fonts/fira-mono
-	media-fonts/fira-sans
-	media-fonts/roboto
-	sys-power/upower
-	x11-base/xwayland
-	x11-themes/pop-icon-theme
+BDEPEND="
+	>=virtual/rust-1.79.0
+	dev-libs/wayland
+	dev-util/pkgconf
+	media-libs/mesa[opengl,wayland]
+	media-video/pipewire
+	x11-libs/libxkbcommon
 "
 
-PATCHES=( "${FILESDIR}/${PV}-just.patch" )
+RDEPEND="sys-auth/rtkit"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -82,10 +63,10 @@ src_preinst() {
 }
 
 src_install() {
-	just \
+	emake \
 		prefix="${D}/usr" \
-		etcdir="${D}/etc" \
-		cargo-target-dir="$(cargo_target_dir)" \
+		CARGO_TARGET_DIR="$(cargo_target_dir)" \
+		TARGET="" \
 		install || die
 }
 

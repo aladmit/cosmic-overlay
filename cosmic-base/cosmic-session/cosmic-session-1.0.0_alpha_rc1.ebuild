@@ -5,7 +5,7 @@ inherit cargo xdg
 DESCRIPTION="The session for the COSMIC desktop"
 HOMEPAGE="https://github.com/pop-os/cosmic-session"
 
-COMMIT="577a181122881ac5e1a2bd263edf6cd53d17b3dc"
+COMMIT="c3de3d24dd200d5f8a19a26de56590472f461574"
 SRC_URI="
 	https://github.com/pop-os/cosmic-session/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
@@ -20,7 +20,7 @@ ZLIB"
 
 SLOT="0"
 
-KEYWORDS="amd64 arm64"
+KEYWORDS="~amd64 ~arm64"
 
 BDEPEND=">=virtual/rust-1.70.0"
 IDEPEND="dev-build/just"
