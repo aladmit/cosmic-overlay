@@ -20,7 +20,7 @@ Unicode-3.0 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="amd64 arm64"
 
 BDEPEND="
 	>=virtual/rust-1.76

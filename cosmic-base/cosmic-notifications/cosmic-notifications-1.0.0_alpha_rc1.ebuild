@@ -20,7 +20,7 @@ Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="amd64 arm64"
 
 BDEPEND="
 	>=virtual/rust-1.75.0
@@ -45,8 +45,8 @@ src_configure() {
 	sed -i "${ECARGO_HOME}/config.toml" -e '/source.gentoo/d'  || die
 	sed -i "${ECARGO_HOME}/config.toml" -e '/directory = .*/d'  || die
 	sed -i "${ECARGO_HOME}/config.toml" -e '/source.crates-io/d'  || die
-sed -i "${ECARGO_HOME}/config.toml" -e '/replace-with = "gentoo"/d'  || die
-sed -i "${ECARGO_HOME}/config.toml" -e '/local-registry = "\/nonexistent"/d'  || die
+	sed -i "${ECARGO_HOME}/config.toml" -e '/replace-with = "gentoo"/d'  || die
+	sed -i "${ECARGO_HOME}/config.toml" -e '/local-registry = "\/nonexistent"/d'  || die
 	cat "${WORKDIR}/config.toml" >> "${ECARGO_HOME}/config.toml" || die
 }
 

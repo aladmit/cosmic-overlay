@@ -14,7 +14,7 @@ LICENSE="GPL-3 CC-BY-SA-4.0"
 
 SLOT="0"
 
-KEYWORDS="~*"
+KEYWORDS="*"
 
 IDEPEND="dev-build/just"
 RDEPEND="x11-themes/pop-icon-theme"
