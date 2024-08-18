@@ -2,41 +2,35 @@ EAPI=8
 
 inherit cargo xdg
 
-DESCRIPTION="Applets for COSMIC panel"
-HOMEPAGE="https://github.com/pop-os/cosmic-applets"
+DESCRIPTION="COSMIC workspaces"
+HOMEPAGE="https://github.com/pop-os/cosmic-workspaces-epoch"
 
-COMMIT="0720bdbae32e6398413aad3d370a74ac3fae5b59"
+COMMIT="70d6c415a1cd931f575c3e18274c3fecc7cc9a03"
 SRC_URI="
-	https://github.com/pop-os/cosmic-applets/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
-	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
+	https://github.com/pop-os/cosmic-workspaces-epoch/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${PN}-epoch-${PV}-vendor.tar.xz"
 
-S="${WORKDIR}/${PN}-${COMMIT}"
+S="${WORKDIR}/${PN}-epoch-${COMMIT}"
 
 LICENSE="GPL-3"
 # deps
-LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0
-CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
+BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0
+Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
-KEYWORDS="amd64 arm64"
+KEYWORDS="~amd64 ~arm64"
 
 BDEPEND="
-	>=virtual/rust-1.73.0
-	dev-build/just
+	>=virtual/rust-1.75.0
 	dev-libs/libinput
 	dev-libs/wayland
 	dev-util/pkgconf
-	media-libs/libpulse
-	media-libs/mesa[opengl]
-	sys-apps/dbus
+	media-libs/mesa[opengl,wayland]
 	virtual/udev
 	x11-libs/libxkbcommon
 "
-
-RDEPEND="cosmic-base/cosmic-icons"
-
-PATCHES=( "${FILESDIR}/${PV}-just.patch" )
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -57,6 +51,9 @@ src_configure() {
 }
 
 src_compile() {
+	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
+	export VERGEN_GIT_SHA=${COMMIT}
+
 	cargo_src_compile
 }
 
@@ -65,10 +62,10 @@ src_preinst() {
 }
 
 src_install() {
-	just \
+	emake \
 		prefix="${D}/usr" \
-		target="" \
-		targetdir="$(cargo_target_dir)" \
+		CARGO_TARGET_DIR="$(cargo_target_dir)" \
+		TARGET="" \
 		install || die
 }
 

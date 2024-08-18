@@ -5,7 +5,7 @@ inherit cargo xdg
 DESCRIPTION="Applets for COSMIC panel"
 HOMEPAGE="https://github.com/pop-os/cosmic-applets"
 
-COMMIT="0720bdbae32e6398413aad3d370a74ac3fae5b59"
+COMMIT="845948f5c812615f31e7c2d789602997d65097cd"
 SRC_URI="
 	https://github.com/pop-os/cosmic-applets/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
@@ -19,10 +19,10 @@ CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
-KEYWORDS="amd64 arm64"
+KEYWORDS="~amd64 ~arm64"
 
 BDEPEND="
-	>=virtual/rust-1.73.0
+	>=virtual/rust-1.80.1
 	dev-build/just
 	dev-libs/libinput
 	dev-libs/wayland
