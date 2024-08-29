@@ -4,9 +4,8 @@ set -e
 set -u
 set -o pipefail
 
-version="1.0.0_alpha_rc2_pre20240817" # version name for this revision
-latest=1                # update all submodules to latest version
-vendored=""							# string to print info about packages at the end
+version="1.0.0_alpha_rc2_pre20240825" # version name for this revision
+latest=1 # update all submodules to latest version
 
 packages=(
 	"cosmic-applets"
@@ -39,6 +38,7 @@ if [ $latest -eq 1 ]; then
 	git submodule update --remote --merge
 fi
 
+vendored=""	# string to print info about vendored packages at the end
 for p in "${packages[@]}"
 do
 	cd $p/

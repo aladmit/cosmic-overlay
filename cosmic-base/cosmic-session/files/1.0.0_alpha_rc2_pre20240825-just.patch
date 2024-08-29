@@ -1,0 +1,13 @@
+diff --git a/Justfile b/Justfile
+index 051f889..0883646 100644
+--- a/Justfile
++++ b/Justfile
+@@ -24,7 +24,7 @@ build:
+ # Installs files into the system
+ install:
+ 	# main binary
+-	install -Dm0755 {{cargo-target-dir}}/release/cosmic-session {{bindir}}/cosmic-session
++	install -Dm0755 {{cargo-target-dir}}/cosmic-session {{bindir}}/cosmic-session
+ 
+ 	# session start script
+ 	install -Dm0755 data/start-cosmic {{bindir}}/start-cosmic

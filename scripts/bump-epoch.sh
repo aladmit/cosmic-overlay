@@ -13,15 +13,13 @@ fi
 CV=$1
 NV=$2
 
-if [ -d "./cosmic-epoch" ]; then
+if [ ! -d "cosmic-epoch" ]; then
 	echo "desired cosmic-epoch repo should be cloned to ./cosmic-epoch" >&2
 	exit 1
 fi
 
 echo "Bumping from ${CV} to ${NV}."
-echo "Script requires sudo password to run ebuild command."
-echo "Enter sudo password:"
-read -s PW
+echo "Script will ask for sudo password to run ebuild command."
 
 packages=(
 	"cosmic-applets"
@@ -66,7 +64,7 @@ do
 	echo "DONE"
 
 	echo -ne "Updating manifest for ${p}-${NV}..."
-	echo $PW | sudo -n -S ebuild "../cosmic-base/${p}/${p}-${NV}.ebuild" manifest > /dev/null
+	sudo ebuild "../cosmic-base/${p}/${p}-${NV}.ebuild" manifest > /dev/null
 	echo "DONE"
 done
 
