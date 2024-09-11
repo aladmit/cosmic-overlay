@@ -1,8 +1,18 @@
-# for some reason it doesn't work with absolute links
+# to pass target from cargo.class
+# and use relative links to plugins
 
-index 623e08b..a4348bc 100644
+index 623e08b..b9215b4 100644
 --- a/justfile
 +++ b/justfile
+@@ -50,7 +50,7 @@ install: install_bin install_plugins install_scripts
+ 
+ # Install pop-launcher binary
+ install_bin:
+-    install -Dm0755 target/{{target}}/pop-launcher-bin {{bin_path}}
++    install -Dm0755 {{target}}/pop-launcher-bin {{bin_path}}
+ 
+ # Install pop-launcher plugins
+ install_plugins:
 @@ -60,7 +60,7 @@ install_plugins:
          dest={{plugin_dir}}${plugin}
          mkdir -p ${dest}
