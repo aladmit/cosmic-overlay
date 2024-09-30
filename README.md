@@ -16,7 +16,7 @@ amd64 too.
 ### Add and sync overlay
 
 ```bash
-eselect repository add cosmic-overlay git git@github.com:aladmit/cosmic-overlay.git
+eselect repository add cosmic-overlay git https://github.com/aladmit/cosmic-overlay.git
 emaint sync -r cosmic-overlay
 ```
 
