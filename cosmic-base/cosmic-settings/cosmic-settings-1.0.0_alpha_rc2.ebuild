@@ -32,6 +32,7 @@ BDEPEND="
 	dev-util/pkgconf
 	media-libs/fontconfig
 	media-libs/freetype
+	media-libs/libpulse
 	virtual/udev
 	x11-libs/libxkbcommon
 "
