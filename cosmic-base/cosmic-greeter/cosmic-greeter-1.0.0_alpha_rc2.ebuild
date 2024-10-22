@@ -1,6 +1,6 @@
 EAPI=8
 
-inherit cargo
+inherit cargo pam tmpfiles systemd
 
 DESCRIPTION="COSMIC Greeter"
 HOMEPAGE="https://github.com/pop-os/cosmic-greeter"
@@ -67,9 +67,26 @@ src_compile() {
 }
 
 src_install() {
-	dobin "$(cargo_target_dir)/cosmic-greeter"
-	dobin "$(cargo_target_dir)/cosmic-greeter-daemon"
+	just \
+		prefix="${D}/usr" \
+		bin-src="$(cargo_target_dir)/${PN}" \
+		daemon-src="$(cargo_target_dir)/${PN}-daemon" \
+		install || die
 
-	insinto /usr/share/dbus-1/system.d
-	doins dbus/com.system76.CosmicGreeter.conf
+	insinto /etc/greetd
+	doins cosmic-greeter.toml
+
+	newpamd "${FILESDIR}"/cosmic-greeter.pam cosmic-greeter
+
+	sed -i \
+		-e '/#\[Install\]/s/^#//' \
+		-e '/#Alias/s/^#//' \
+		debian/cosmic-greeter.service
+
+	systemd_dounit debian/cosmic-greeter-daemon.service || die
+	systemd_dounit debian/cosmic-greeter.service || die
+}
+
+pkg_postinst() {
+	tmpfiles_process cosmic-greeter.conf
 }

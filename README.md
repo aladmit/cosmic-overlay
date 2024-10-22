@@ -20,7 +20,7 @@ eselect repository add cosmic-overlay git https://github.com/aladmit/cosmic-over
 emaint sync -r cosmic-overlay
 ```
 
-### Install cosmic DE
+### Install COSMIC DE
 
 Stable ebuilds(amd64, arm64) install version from [cosmic-epoch](https://github.com/pop-os/cosmic-epoch)
 repo which I consider stable. Testing ebuilds(~amd64, ~arm64) install fresher
@@ -28,6 +28,26 @@ version.
 
 ```bash
 emerge -av cosmic-base/cosmic
+```
+
+After installation COSMIC should be available to choose in you login
+manager(**Wayland only**).
+
+### COSMIC login manager
+
+> [!WARNING]
+> [!WARNING] cosmic-greeter is necessary to log in after the system has been
+> suspended. However, I can't recommend it for daily use as a login manager. It
+> doesn't display a list of users to choose from, doesn't scale well for HiDPI
+> screens, and feels slow and laggy.
+
+COSMIC has it's own login manager `cosmic-greeter` working on top of `greetd`.
+Disable all other login managers like GDM, greetd, etc. And enable
+cosmic-greeter.
+
+```sh
+systemctl enable cosmic-greeter-daemon
+systemctl enable cosmic-greeter
 ```
 
 ## Known issues
