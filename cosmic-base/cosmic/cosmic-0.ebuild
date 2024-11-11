@@ -13,6 +13,7 @@ RDEPEND="
 	cosmic-base/cosmic-edit
 	cosmic-base/cosmic-files
 	cosmic-base/cosmic-icons
+	cosmic-base/cosmic-idle
 	cosmic-base/cosmic-launcher
 	cosmic-base/cosmic-notifications
 	cosmic-base/cosmic-osd

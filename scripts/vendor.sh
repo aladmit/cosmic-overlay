@@ -4,7 +4,7 @@ set -e
 set -u
 set -o pipefail
 
-version="1.0.0_alpha_rc2" # version name for this revision
+version="1.0.0_alpha_rc3" # version name for this revision
 latest=0 # update all submodules to latest version
 
 packages=(
@@ -15,6 +15,7 @@ packages=(
 	"cosmic-edit"
 	"cosmic-files"
 	"cosmic-greeter"
+	"cosmic-idle"
 	"cosmic-launcher"
 	"cosmic-notifications"
 	"cosmic-osd"
@@ -22,8 +23,8 @@ packages=(
 	"cosmic-randr"
 	"cosmic-screenshot"
 	"cosmic-session"
-	"cosmic-settings-daemon"
 	"cosmic-settings"
+	"cosmic-settings-daemon"
 	"cosmic-term"
 	"cosmic-workspaces-epoch"
 	"xdg-desktop-portal-cosmic"
