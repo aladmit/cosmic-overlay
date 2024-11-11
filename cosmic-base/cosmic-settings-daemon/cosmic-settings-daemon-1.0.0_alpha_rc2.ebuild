@@ -29,7 +29,6 @@ RDEPEND="
 "
 
 BDEPEND="
-	>=virtual/rust-1.70.0
 	dev-libs/libinput
 	dev-util/pkgconf
 	virtual/udev

@@ -23,7 +23,6 @@ SLOT="0"
 KEYWORDS="amd64 arm64"
 
 BDEPEND="
-	>=virtual/rust-1.79.0
 	dev-libs/wayland
 	dev-util/pkgconf
 	media-libs/mesa[opengl,wayland]

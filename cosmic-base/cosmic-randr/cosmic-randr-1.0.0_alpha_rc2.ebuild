@@ -23,7 +23,6 @@ KEYWORDS="amd64 arm64"
 
 # TODO: add optional mold
 BDEPEND="
-	>=virtual/rust-1.75.0
 	dev-libs/wayland
 	dev-util/pkgconf
 "

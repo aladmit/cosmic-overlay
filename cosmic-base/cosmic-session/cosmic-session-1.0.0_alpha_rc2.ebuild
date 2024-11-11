@@ -22,7 +22,6 @@ SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-BDEPEND=">=virtual/rust-1.70.0"
 IDEPEND="dev-build/just"
 
 RDEPEND="
@@ -47,10 +46,9 @@ RDEPEND="
 	media-fonts/roboto
 	sys-power/upower
 	x11-base/xwayland
-	x11-themes/pop-icon-theme
 "
 
-PATCHES=( "${FILESDIR}/${PV}-just.patch" )
+PATCHES=( "${FILESDIR}/justfile.patch" )
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 

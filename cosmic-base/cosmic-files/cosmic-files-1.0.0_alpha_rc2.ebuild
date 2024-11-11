@@ -23,7 +23,6 @@ SLOT="0"
 KEYWORDS="amd64 arm64"
 
 BDEPEND="
-	>=virtual/rust-1.71.0
 	dev-build/just
 	dev-libs/glib
 	dev-util/pkgconf

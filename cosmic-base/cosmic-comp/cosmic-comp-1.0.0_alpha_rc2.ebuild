@@ -23,7 +23,6 @@ SLOT="0"
 KEYWORDS="amd64 arm64"
 
 BDEPEND="
-	>=virtual/rust-1.76
 	dev-build/just
 	dev-libs/libinput
 	dev-libs/wayland

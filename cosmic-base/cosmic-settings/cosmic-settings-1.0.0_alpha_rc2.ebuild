@@ -25,7 +25,6 @@ KEYWORDS="amd64 arm64"
 # add use mold
 # sys-devel/mold
 BDEPEND="
-	>=virtual/rust-1.79.0
 	dev-libs/expat
 	dev-libs/libinput
 	dev-libs/wayland

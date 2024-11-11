@@ -21,7 +21,6 @@ SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-BDEPEND=">=virtual/rust-1.75.0"
 IDEPEND="dev-build/just"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"

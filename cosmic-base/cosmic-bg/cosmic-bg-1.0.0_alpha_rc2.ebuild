@@ -24,7 +24,6 @@ KEYWORDS="amd64 arm64"
 
 # add optional mold
 BDEPEND="
-	>=virtual/rust-1.73.0
 	dev-build/just
 	dev-lang/nasm
 	dev-libs/wayland

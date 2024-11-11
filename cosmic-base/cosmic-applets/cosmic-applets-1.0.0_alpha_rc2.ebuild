@@ -22,7 +22,6 @@ SLOT="0"
 KEYWORDS="amd64 arm64"
 
 BDEPEND="
-	>=virtual/rust-1.73.0
 	dev-build/just
 	dev-libs/libinput
 	dev-libs/wayland
@@ -36,7 +35,7 @@ BDEPEND="
 
 RDEPEND="cosmic-base/cosmic-icons"
 
-PATCHES=( "${FILESDIR}/${PV}-just.patch" )
+PATCHES=( "${FILESDIR}/justfile.patch" )
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 

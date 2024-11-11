@@ -21,7 +21,6 @@ SLOT="0"
 KEYWORDS="amd64 arm64"
 
 BDEPEND="
-	>=virtual/rust-1.70.0
 	x11-libs/libxkbcommon
 	dev-libs/wayland
 	media-libs/mesa[opengl]
