@@ -18,6 +18,7 @@ RDEPEND="
 	cosmic-base/cosmic-notifications
 	cosmic-base/cosmic-osd
 	cosmic-base/cosmic-panel
+	cosmic-base/cosmic-player
 	cosmic-base/cosmic-randr
 	cosmic-base/cosmic-screenshot
 	cosmic-base/cosmic-session

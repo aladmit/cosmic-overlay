@@ -4,7 +4,7 @@ set -e
 set -u
 set -o pipefail
 
-version="1.0.0_alpha_rc4" # version name for this revision
+version="1.0.0_alpha_rc5" # version name for this revision
 latest=0 # update all submodules to latest version
 
 packages=(
@@ -23,6 +23,7 @@ packages=(
 	"cosmic-randr"
 	"cosmic-screenshot"
 	"cosmic-session"
+	"cosmic-player"
 	"cosmic-settings"
 	"cosmic-settings-daemon"
 	"cosmic-term"
