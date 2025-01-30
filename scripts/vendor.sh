@@ -4,7 +4,7 @@ set -e
 set -u
 set -o pipefail
 
-version="1.0.0_alpha_rc5" # version name for this revision
+version="1.0.0_alpha_rc51" # version name for this revision
 latest=0 # update all submodules to latest version
 
 packages=(
