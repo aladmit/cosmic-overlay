@@ -35,6 +35,7 @@ packages=(
 	"cosmic-notifications"
 	"cosmic-osd"
 	"cosmic-panel"
+	"cosmic-player"
 	"cosmic-randr"
 	"cosmic-screenshot"
 	"cosmic-session"
