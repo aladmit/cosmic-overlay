@@ -9,9 +9,9 @@ SRC_URI="https://github.com/lassekongo83/adw-gtk3/archive/refs/tags/v${PV}.tar.g
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="*"
+KEYWORDS="amd64"
 
-BDEPEND="dev-lang/sassc"
+BDEPEND="dev-build/dart-sass"
 
 src_configure() {
 	meson_src_configure
