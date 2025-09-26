@@ -5,7 +5,7 @@ inherit xdg
 DESCRIPTION="COSMIC Cosmic Icons"
 HOMEPAGE="https://github.com/pop-os/cosmic-icons"
 
-COMMIT="52ad55cba5272630f345e14bee69c9fbe7aa98c4"
+COMMIT="70b07582e24ec2114672256b9657ca80670bca8a"
 SRC_URI="https://github.com/pop-os/cosmic-icons/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"

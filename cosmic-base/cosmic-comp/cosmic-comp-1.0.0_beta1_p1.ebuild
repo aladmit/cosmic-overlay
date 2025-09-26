@@ -5,7 +5,7 @@ inherit cargo
 DESCRIPTION="Compositor for the COSMIC desktop environment "
 HOMEPAGE="https://github.com/pop-os/cosmic-comp"
 
-COMMIT="96e9bf3b81718e2a9ac28b2c24bd1149400b286a"
+COMMIT="f339e21479c05153864af79c8fb5d005dcff8abc"
 SRC_URI="
 	https://github.com/pop-os/cosmic-comp/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"

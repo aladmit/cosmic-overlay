@@ -2,29 +2,26 @@ EAPI=8
 
 inherit cargo xdg
 
-DESCRIPTION="COSMIC Text Editor"
-HOMEPAGE="https://github.com/pop-os/cosmic-edit"
+DESCRIPTION="COSMIC Screenshot Utility"
+HOMEPAGE="https://github.com/pop-os/cosmic-screenshot"
 
-COMMIT="4b75c32bffecf735f8393af9ddb32a89a237d3c2"
+COMMIT="ba59f95cb1ef28e6836535fc6e1874b5667f76f2"
 SRC_URI="
-	https://github.com/pop-os/cosmic-edit/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-screenshot/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
 
 LICENSE="GPL-3"
 # deps
-LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
+BSD MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-BDEPEND="
-	dev-build/just
-	dev-util/pkgconf
-	x11-libs/libxkbcommon
-"
+IDEPEND="dev-build/just"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 

@@ -2,15 +2,15 @@ EAPI=8
 
 inherit cargo xdg
 
-DESCRIPTION="COSMIC Notifications"
-HOMEPAGE="https://github.com/pop-os/cosmic-notifications"
+DESCRIPTION="COSMIC workspaces"
+HOMEPAGE="https://github.com/pop-os/cosmic-workspaces-epoch"
 
-COMMIT="ea717d7938ba1b6d2f9c997e5db5eb54f441634f"
+COMMIT="9968b0e61f106fc60cc19e57cc46321c26e496dd"
 SRC_URI="
-	https://github.com/pop-os/cosmic-notifications/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
-	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
+	https://github.com/pop-os/cosmic-workspaces-epoch/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${PN}-epoch-${PV}-vendor.tar.xz"
 
-S="${WORKDIR}/${PN}-${COMMIT}"
+S="${WORKDIR}/${PN}-epoch-${COMMIT}"
 
 LICENSE="GPL-3"
 # deps
@@ -23,13 +23,13 @@ SLOT="0"
 KEYWORDS="amd64 arm64"
 
 BDEPEND="
+	dev-libs/libinput
 	dev-libs/wayland
-	dev-util/intltool
 	dev-util/pkgconf
+	media-libs/mesa[opengl,wayland]
+	virtual/udev
 	x11-libs/libxkbcommon
 "
-
-IDEPEND="dev-build/just"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -63,9 +63,10 @@ src_preinst() {
 src_install() {
 	# replace COSMIC with X-COSMIC
 	find ${S} -type f -name "*.desktop" -exec sed -i '/^Categories=/ s/COSMIC/X-COSMIC/g' {} +
-	just \
+	emake \
 		prefix="${D}/usr" \
-		bin-src="$(cargo_target_dir)/${PN}" \
+		CARGO_TARGET_DIR="$(cargo_target_dir)" \
+		TARGET="" \
 		install || die
 }
 

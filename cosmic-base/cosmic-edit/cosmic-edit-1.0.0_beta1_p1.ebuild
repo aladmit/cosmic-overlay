@@ -2,35 +2,29 @@ EAPI=8
 
 inherit cargo xdg
 
-DESCRIPTION="COSMIC backend for xdg-desktop-portal"
-HOMEPAGE="https://github.com/pop-os/xdg-desktop-portal-cosmic"
+DESCRIPTION="COSMIC Text Editor"
+HOMEPAGE="https://github.com/pop-os/cosmic-edit"
 
-COMMIT="a821b5a778c082ff9589eafbc165f3a8893f4a8c"
+COMMIT="942cfc4f27f7e9d57ac09c576be75ff9458a4e67"
 SRC_URI="
-	https://github.com/pop-os/xdg-desktop-portal-cosmic/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-edit/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
 
 LICENSE="GPL-3"
 # deps
-LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0
-Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
 BDEPEND="
-	dev-libs/wayland
+	dev-build/just
 	dev-util/pkgconf
-	media-libs/mesa[opengl,wayland]
-	media-video/pipewire
 	x11-libs/libxkbcommon
 "
-
-RDEPEND="sys-auth/rtkit"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -62,10 +56,11 @@ src_preinst() {
 }
 
 src_install() {
-	emake \
+	# replace COSMIC with X-COSMIC
+	find ${S} -type f -name "*.desktop" -exec sed -i '/^Categories=/ s/COSMIC/X-COSMIC/g' {} +
+	just \
 		prefix="${D}/usr" \
-		CARGO_TARGET_DIR="$(cargo_target_dir)" \
-		TARGET="" \
+		bin-src="$(cargo_target_dir)/${PN}" \
 		install || die
 }
 

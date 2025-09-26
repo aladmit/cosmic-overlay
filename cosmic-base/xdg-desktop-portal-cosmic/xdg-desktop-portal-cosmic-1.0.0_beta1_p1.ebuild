@@ -1,13 +1,13 @@
 EAPI=8
 
-inherit cargo
+inherit cargo xdg
 
-DESCRIPTION="Display and configure wayland display outputs"
-HOMEPAGE="https://github.com/pop-os/cosmic-randr"
+DESCRIPTION="COSMIC backend for xdg-desktop-portal"
+HOMEPAGE="https://github.com/pop-os/xdg-desktop-portal-cosmic"
 
-COMMIT="c247019230c5d820dd1c3d47bc4e3c52fb03b42f"
+COMMIT="2477a1b39806fd0eb6831e38f0a32a81abb1a806"
 SRC_URI="
-	https://github.com/pop-os/cosmic-randr/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/xdg-desktop-portal-cosmic/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
@@ -15,19 +15,22 @@ S="${WORKDIR}/${PN}-${COMMIT}"
 LICENSE="GPL-3"
 # deps
 LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
+BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0
+Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-# TODO: add optional mold
 BDEPEND="
 	dev-libs/wayland
 	dev-util/pkgconf
+	media-libs/mesa[opengl,wayland]
+	media-video/pipewire
+	x11-libs/libxkbcommon
 "
 
-IDEPEND="dev-build/just"
+RDEPEND="sys-auth/rtkit"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -54,9 +57,22 @@ src_compile() {
 	cargo_src_compile
 }
 
+src_preinst() {
+	xdg_pkg_preinst
+}
+
 src_install() {
-	just \
+	emake \
 		prefix="${D}/usr" \
-		bin-src="$(cargo_target_dir)/${PN}" \
+		CARGO_TARGET_DIR="$(cargo_target_dir)" \
+		TARGET="" \
 		install || die
+}
+
+src_postinst() {
+	xdg_pkg_postinst
+}
+
+src_postrm() {
+	xdg_pkg_postrm
 }

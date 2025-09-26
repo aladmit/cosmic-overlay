@@ -2,48 +2,34 @@ EAPI=8
 
 inherit cargo xdg
 
-DESCRIPTION="Settings application for the COSMIC desktop environment"
-HOMEPAGE="https://github.com/pop-os/cosmic-settings"
+DESCRIPTION="COSMIC File Manager"
+HOMEPAGE="https://github.com/pop-os/cosmic-files"
 
-COMMIT="d853267ef128308ed1d6feb0e5ff35b81843c245"
+COMMIT="0c222e1e3a9da73c32240858c3dafc81956396f0"
 SRC_URI="
-	https://github.com/pop-os/cosmic-settings/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-files/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
 
 LICENSE="GPL-3"
-#deps
+# deps
 LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0 NCSA
+BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 ISC MIT MPL-2.0
 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-# add use mold
-# sys-devel/mold
 BDEPEND="
-	dev-libs/expat
-	dev-libs/libinput
-	dev-libs/wayland
+	dev-build/just
+	dev-libs/glib
 	dev-util/pkgconf
-	media-libs/fontconfig
-	media-libs/freetype
-	media-libs/libpulse
-	virtual/udev
 	x11-libs/libxkbcommon
 "
 
-IDEPEND="dev-build/just"
-
-RDEPEND="
-	app-text/iso-codes
-	cosmic-base/cosmic-randr
-	sys-apps/accountsservice
-	sys-devel/gettext
-"
+RDENEND="x11-misc/xdg-utils"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -68,6 +54,7 @@ src_compile() {
 	export VERGEN_GIT_SHA=${COMMIT}
 
 	cargo_src_compile
+	cargo_src_compile --package "${PN}-applet"
 }
 
 src_preinst() {
@@ -77,10 +64,10 @@ src_preinst() {
 src_install() {
 	# replace COSMIC with X-COSMIC
 	find ${S} -type f -name "*.desktop" -exec sed -i '/^Categories=/ s/COSMIC/X-COSMIC/g' {} +
-	find ${S}/ -type f -name "*.desktop" -exec sed -i 's/Settings/Application/g' {} +
 	just \
 		prefix="${D}/usr" \
 		bin-src="$(cargo_target_dir)/${PN}" \
+		applet-src="$(cargo_target_dir)/${PN}-applet" \
 		install || die
 }
 

@@ -2,12 +2,12 @@ EAPI=8
 
 inherit cargo xdg
 
-DESCRIPTION="COSMIC Background"
-HOMEPAGE="https://github.com/pop-os/cosmic-bg"
+DESCRIPTION="The session for the COSMIC desktop"
+HOMEPAGE="https://github.com/pop-os/cosmic-session"
 
-COMMIT="b6adf25075383c0e606658a7309919a9b092ee54"
+COMMIT="379ce30715f637075879feda784edc89231792cf"
 SRC_URI="
-	https://github.com/pop-os/cosmic-bg/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-session/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
@@ -15,21 +15,40 @@ S="${WORKDIR}/${PN}-${COMMIT}"
 LICENSE="GPL-3"
 # deps
 LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0
-Unicode-DFS-2016 Unlicense ZLIB"
+BSD Boost-1.0 GPL-3 MIT MPL-2.0 Unicode-DFS-2016 Unlicense
+ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-# add optional mold
-BDEPEND="
-	dev-build/just
-	dev-lang/nasm
-	dev-libs/wayland
-	dev-util/pkgconf
-	x11-libs/libxkbcommon
+IDEPEND="dev-build/just"
+
+RDEPEND="
+	cosmic-base/cosmic-applets
+	cosmic-base/cosmic-applibrary
+	cosmic-base/cosmic-bg
+	cosmic-base/cosmic-comp
+	cosmic-base/cosmic-greeter
+	cosmic-base/cosmic-icons
+	cosmic-base/cosmic-launcher
+	cosmic-base/cosmic-notifications
+	cosmic-base/cosmic-osd
+	cosmic-base/cosmic-panel
+	cosmic-base/cosmic-randr
+	cosmic-base/cosmic-screenshot
+	cosmic-base/cosmic-settings
+	cosmic-base/cosmic-settings-daemon
+	cosmic-base/cosmic-workspaces
+	cosmic-base/xdg-desktop-portal-cosmic
+	media-fonts/fira-mono
+	media-fonts/fira-sans
+	media-fonts/roboto
+	sys-power/upower
+	x11-base/xwayland
 "
+
+PATCHES=( "${FILESDIR}/justfile.patch" )
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -65,7 +84,8 @@ src_install() {
 	find ${S} -type f -name "*.desktop" -exec sed -i '/^Categories=/ s/COSMIC/X-COSMIC/g' {} +
 	just \
 		prefix="${D}/usr" \
-		bin-src="$(cargo_target_dir)/${PN}" \
+		etcdir="${D}/etc" \
+		cargo-target-dir="$(cargo_target_dir)" \
 		install || die
 }
 
