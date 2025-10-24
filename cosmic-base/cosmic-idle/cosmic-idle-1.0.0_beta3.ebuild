@@ -2,37 +2,28 @@ EAPI=8
 
 inherit cargo
 
-DESCRIPTION="Cosmic settings daemon"
-HOMEPAGE="https://github.com/pop-os/cosmic-settings-daemon"
+DESCRIPTION="COSMIC idle daemon"
+HOMEPAGE="https://github.com/pop-os/cosmic-idle"
 
-COMMIT="181e8f9c6269253f173f1bbcdd1385f23c78c598"
+COMMIT="267bb837f127eb805a17250ebcad02db57eb72cb"
 SRC_URI="
-	https://github.com/pop-os/cosmic-settings-daemon/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-idle/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
 
 LICENSE="GPL-3"
-# deps
-LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3+ ISC MIT MPL-2.0
-Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-RDEPEND="
-	sys-power/acpid
-	x11-themes/adw-gtk3
-	app-misc/geoclue
-"
-
+# add optional mold
 BDEPEND="
-	dev-libs/libinput
+	dev-build/just
+	dev-libs/wayland
 	dev-util/pkgconf
-	media-libs/libpulse
-	virtual/udev
+	x11-libs/libxkbcommon
 "
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
@@ -56,15 +47,13 @@ src_configure() {
 src_compile() {
 	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
 	export VERGEN_GIT_SHA=${COMMIT}
-	export GEOCLUE_AGENT=/usr/libexec/geoclue-2.0/demos/agent
 
-	cargo_src_compile --bin cosmic-settings-daemon
+	cargo_src_compile
 }
 
 src_install() {
-	emake \
+	just \
 		prefix="${D}/usr" \
-		CARGO_TARGET_DIR="$(cargo_target_dir)" \
-		TARGET="" \
+		bin-src="$(cargo_target_dir)/${PN}" \
 		install || die
 }

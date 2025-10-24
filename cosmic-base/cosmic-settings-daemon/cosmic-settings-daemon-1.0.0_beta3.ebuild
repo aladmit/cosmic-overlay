@@ -5,7 +5,7 @@ inherit cargo
 DESCRIPTION="Cosmic settings daemon"
 HOMEPAGE="https://github.com/pop-os/cosmic-settings-daemon"
 
-COMMIT="181e8f9c6269253f173f1bbcdd1385f23c78c598"
+COMMIT="68331387e4336c37ce2300bea8638257feab449a"
 SRC_URI="
 	https://github.com/pop-os/cosmic-settings-daemon/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"

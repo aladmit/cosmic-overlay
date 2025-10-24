@@ -1,13 +1,13 @@
 EAPI=8
 
-inherit cargo
+inherit cargo pam tmpfiles systemd
 
-DESCRIPTION="Cosmic settings daemon"
-HOMEPAGE="https://github.com/pop-os/cosmic-settings-daemon"
+DESCRIPTION="COSMIC Greeter"
+HOMEPAGE="https://github.com/pop-os/cosmic-greeter"
 
-COMMIT="181e8f9c6269253f173f1bbcdd1385f23c78c598"
+COMMIT="948b35ab1294174afb4137b04d5f54a7537fd138"
 SRC_URI="
-	https://github.com/pop-os/cosmic-settings-daemon/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-greeter/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
@@ -15,24 +15,29 @@ S="${WORKDIR}/${PN}-${COMMIT}"
 LICENSE="GPL-3"
 # deps
 LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3+ ISC MIT MPL-2.0
+BSD BSD-2 Boost-1.0 CC-PD CC0-1.0 GPL-3 ISC MIT MPL-2.0
 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-RDEPEND="
-	sys-power/acpid
-	x11-themes/adw-gtk3
-	app-misc/geoclue
-"
-
 BDEPEND="
 	dev-libs/libinput
+	dev-libs/wayland
 	dev-util/pkgconf
-	media-libs/libpulse
-	virtual/udev
+	llvm-core/clang
+	sys-libs/pam
+	x11-libs/libxkbcommon
+"
+
+RDEPEND="
+	app-shells/bash
+	cosmic-base/cosmic-comp
+	gui-libs/greetd
+	sys-apps/dbus
+	acct-user/cosmic-greeter
+	acct-group/cosmic-greeter
 "
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
@@ -56,15 +61,31 @@ src_configure() {
 src_compile() {
 	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
 	export VERGEN_GIT_SHA=${COMMIT}
-	export GEOCLUE_AGENT=/usr/libexec/geoclue-2.0/demos/agent
 
-	cargo_src_compile --bin cosmic-settings-daemon
+	cargo_src_compile --all
 }
 
 src_install() {
-	emake \
+	just \
 		prefix="${D}/usr" \
-		CARGO_TARGET_DIR="$(cargo_target_dir)" \
-		TARGET="" \
+		bin-src="$(cargo_target_dir)/${PN}" \
+		daemon-src="$(cargo_target_dir)/${PN}-daemon" \
 		install || die
+
+	insinto /etc/greetd
+	doins cosmic-greeter.toml
+
+	newpamd "${FILESDIR}"/cosmic-greeter.pam cosmic-greeter
+
+	sed -i \
+		-e '/#\[Install\]/s/^#//' \
+		-e '/#Alias/s/^#//' \
+		debian/cosmic-greeter.service
+
+	systemd_dounit debian/cosmic-greeter-daemon.service || die
+	systemd_dounit debian/cosmic-greeter.service || die
+}
+
+pkg_postinst() {
+	tmpfiles_process cosmic-greeter.conf
 }

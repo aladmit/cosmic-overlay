@@ -2,11 +2,7 @@
 
 [Gentoo](https://gentoo.org) overlay with next generation 
 [COSMIC DE](https://blog.system76.com/tags/COSMIC%20DE). This DE is in
-**pre-alpha** stage, but already usable for daily driving.
-
-**Overlay status**: stable ebuilds install functional DE with a few minor
-issues. Installation was tested only on aarch64 platform, but should work on
-amd64 too.
+**beta**, but already usable for daily driving.
 
 > [!CAUTION]
 > Overlay supports only **systemd** profiles. Contributions are welcome!
@@ -22,9 +18,7 @@ emaint sync -r cosmic-overlay
 
 ### Install COSMIC DE
 
-Stable ebuilds(amd64, arm64) install version from [cosmic-epoch](https://github.com/pop-os/cosmic-epoch)
-repo which I consider stable. Testing ebuilds(~amd64, ~arm64) install fresher
-version.
+Ebuilds follow releases from [cosmic-epoch](https://github.com/pop-os/cosmic-epoch)
 
 ```bash
 emerge -av cosmic-base/cosmic
@@ -35,15 +29,8 @@ manager(**Wayland only**).
 
 ### COSMIC login manager
 
-> [!WARNING]
-> [!WARNING] cosmic-greeter is necessary to log in after the system has been
-> suspended. However, I can't recommend it for daily use as a login manager. It
-> doesn't display a list of users to choose from, doesn't scale well for HiDPI
-> screens, and feels slow and laggy.
-
 COSMIC has it's own login manager `cosmic-greeter` working on top of `greetd`.
-Disable all other login managers like GDM, greetd, etc. And enable
-cosmic-greeter.
+Disable all other login managers like GDM and enable cosmic-greeter.
 
 ```sh
 systemctl enable cosmic-greeter-daemon

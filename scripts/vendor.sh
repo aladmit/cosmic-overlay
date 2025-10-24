@@ -4,8 +4,8 @@ set -e
 set -u
 set -o pipefail
 
-version="1.0.0_beta1_p1" # version name for this revision
-latest=0                 # update all submodules to latest version
+version="1.0.0_beta3" # version name for this revision
+latest=0              # update all submodules to latest version
 
 packages=(
   "cosmic-applets"

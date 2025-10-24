@@ -2,12 +2,12 @@ EAPI=8
 
 inherit cargo
 
-DESCRIPTION="Cosmic settings daemon"
-HOMEPAGE="https://github.com/pop-os/cosmic-settings-daemon"
+DESCRIPTION="COSMIC OSD"
+HOMEPAGE="https://github.com/pop-os/cosmic-osd"
 
-COMMIT="181e8f9c6269253f173f1bbcdd1385f23c78c598"
+COMMIT="91930fcdb51847abde03bfa8941d9d83b82280b7"
 SRC_URI="
-	https://github.com/pop-os/cosmic-settings-daemon/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-osd/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
@@ -15,25 +15,22 @@ S="${WORKDIR}/${PN}-${COMMIT}"
 LICENSE="GPL-3"
 # deps
 LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3+ ISC MIT MPL-2.0
+BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0
 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-RDEPEND="
-	sys-power/acpid
-	x11-themes/adw-gtk3
-	app-misc/geoclue
-"
-
 BDEPEND="
-	dev-libs/libinput
+	dev-libs/wayland
 	dev-util/pkgconf
 	media-libs/libpulse
 	virtual/udev
+	x11-libs/libxkbcommon
 "
+
+IDEPEND="dev-build/just"
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -42,6 +39,7 @@ src_unpack() {
 }
 
 src_configure() {
+	export POLKIT_AGENT_HELPER_1=/usr/lib/polkit-1/polkit-agent-helper-1
 	cargo_src_configure
 
 	# use vendored crates
@@ -56,15 +54,10 @@ src_configure() {
 src_compile() {
 	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
 	export VERGEN_GIT_SHA=${COMMIT}
-	export GEOCLUE_AGENT=/usr/libexec/geoclue-2.0/demos/agent
 
-	cargo_src_compile --bin cosmic-settings-daemon
+	cargo_src_compile
 }
 
 src_install() {
-	emake \
-		prefix="${D}/usr" \
-		CARGO_TARGET_DIR="$(cargo_target_dir)" \
-		TARGET="" \
-		install || die
+	dobin "$(cargo_target_dir)/${PN}"
 }

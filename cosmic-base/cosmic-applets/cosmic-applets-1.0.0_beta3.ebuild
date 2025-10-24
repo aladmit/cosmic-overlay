@@ -1,39 +1,41 @@
 EAPI=8
 
-inherit cargo
+inherit cargo xdg
 
-DESCRIPTION="Cosmic settings daemon"
-HOMEPAGE="https://github.com/pop-os/cosmic-settings-daemon"
+DESCRIPTION="Applets for COSMIC panel"
+HOMEPAGE="https://github.com/pop-os/cosmic-applets"
 
-COMMIT="181e8f9c6269253f173f1bbcdd1385f23c78c598"
+COMMIT="4dae45733e8838a27e7ad8053c948c6a475a4392"
 SRC_URI="
-	https://github.com/pop-os/cosmic-settings-daemon/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
+	https://github.com/pop-os/cosmic-applets/archive/${COMMIT}.tar.gz -> ${PN}-${PV}.tar.gz
 	https://github.com/aladmit/cosmic-overlay/releases/download/${PV}/${P}-vendor.tar.xz"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
 
 LICENSE="GPL-3"
 # deps
-LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions
-BSD BSD-2 Boost-1.0 CC0-1.0 GPL-3+ ISC MIT MPL-2.0
-Unicode-DFS-2016 Unlicense ZLIB"
+LICENSE+=" 0BSD Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD BSD-2 Boost-1.0
+CC0-1.0 GPL-3 GPL-3+ ISC MIT MPL-2.0 Unicode-DFS-2016 Unlicense ZLIB"
 
 SLOT="0"
 
 KEYWORDS="amd64 arm64"
 
-RDEPEND="
-	sys-power/acpid
-	x11-themes/adw-gtk3
-	app-misc/geoclue
-"
-
 BDEPEND="
+	dev-build/just
 	dev-libs/libinput
+	dev-libs/wayland
 	dev-util/pkgconf
 	media-libs/libpulse
+	media-libs/mesa[opengl]
+	sys-apps/dbus
 	virtual/udev
+	x11-libs/libxkbcommon
 "
+
+RDEPEND="cosmic-base/cosmic-icons"
+
+PATCHES=( "${FILESDIR}/justfile.patch" )
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -54,17 +56,27 @@ src_configure() {
 }
 
 src_compile() {
-	export VERGEN_GIT_COMMIT_DATE=$(date --utc +'%Y-%m-%d')
-	export VERGEN_GIT_SHA=${COMMIT}
-	export GEOCLUE_AGENT=/usr/libexec/geoclue-2.0/demos/agent
+	cargo_src_compile
+}
 
-	cargo_src_compile --bin cosmic-settings-daemon
+src_preinst() {
+	xdg_pkg_preinst
 }
 
 src_install() {
-	emake \
+	# replace COSMIC with X-COSMIC
+	find ${S} -type f -name "*.desktop" -exec sed -i '/^Categories=/ s/COSMIC/X-COSMIC/g' {} +
+	just \
 		prefix="${D}/usr" \
-		CARGO_TARGET_DIR="$(cargo_target_dir)" \
-		TARGET="" \
+		target="" \
+		targetdir="$(cargo_target_dir)" \
 		install || die
+}
+
+src_postinst() {
+	xdg_pkg_postinst
+}
+
+src_postrm() {
+	xdg_pkg_postrm
 }
