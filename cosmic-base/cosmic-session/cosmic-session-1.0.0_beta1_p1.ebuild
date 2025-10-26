@@ -48,7 +48,7 @@ RDEPEND="
 	x11-base/xwayland
 "
 
-PATCHES=( "${FILESDIR}/justfile.patch" )
+PATCHES=( "${FILESDIR}/cargo_target_dir.patch" )
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 

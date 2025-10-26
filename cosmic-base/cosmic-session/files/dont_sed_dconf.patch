@@ -1,0 +1,12 @@
+diff --git a/Justfile b/Justfile
+index a5f107a..a4e0cb8 100644
+--- a/Justfile
++++ b/Justfile
+@@ -30,7 +30,6 @@ install:
+ 
+ 	# session start script
+ 	install -Dm0755 data/start-cosmic {{bindir}}/start-cosmic
+-	sed -i "s|DCONF_PROFILE=cosmic|DCONF_PROFILE={{cosmic_dconf_profile}}|" {{bindir}}/start-cosmic
+ 
+ 	# systemd target
+ 	install -Dm0644 data/cosmic-session.target {{systemddir}}/cosmic-session.target

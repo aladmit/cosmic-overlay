@@ -48,7 +48,10 @@ RDEPEND="
 	x11-base/xwayland
 "
 
-PATCHES=( "${FILESDIR}/justfile.patch" )
+PATCHES=(
+	"${FILESDIR}/cargo_target_dir.patch"
+	"${FILESDIR}/dont_sed_dconf.patch"
+)
 
 ECARGO_VENDOR="${WORKDIR}/vendor"
 
@@ -87,6 +90,8 @@ src_install() {
 		etcdir="${D}/etc" \
 		cargo-target-dir="$(cargo_target_dir)" \
 		install || die
+
+	sed -i "s|DCONF_PROFILE=cosmic|DCONF_PROFILE=/usr/share/dconf/profile/cosmic|" "${D}/usr/bin/start-cosmic" || die
 }
 
 src_postinst() {
