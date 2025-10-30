@@ -19,11 +19,10 @@ if [ ! -d "cosmic-epoch" ]; then
 	exit 1
 fi
 
-packages=(
+justfiles=(
 	"cosmic-applets"
 	"cosmic-applibrary"
 	"cosmic-bg"
-	"cosmic-comp"
 	"cosmic-edit"
 	"cosmic-files"
 	"cosmic-greeter"
@@ -31,22 +30,45 @@ packages=(
 	"cosmic-idle"
 	"cosmic-launcher"
 	"cosmic-notifications"
-	"cosmic-osd"
 	"cosmic-panel"
 	"cosmic-randr"
 	"cosmic-screenshot"
-	"cosmic-session"
 	"cosmic-settings"
-	"cosmic-settings-daemon"
 	"cosmic-term"
-	"cosmic-workspaces"
+)
+
+Justfiles=(
+	"cosmic-session"
+)
+
+Makefiles=(
+	"cosmic-comp"
+	"cosmic-osd"
+	"cosmic-settings-daemon"
+	"cosmic-workspaces-epoch"
 	"xdg-desktop-portal-cosmic"
 )
 
-LIST=${packages[@]}
-DEPS_FILES=${LIST// //debian/control }
-
 cd cosmic-epoch
-git diff ${OLDTAG} ${NEWTAG} -- cosmic-applets/justfile
-git diff ${OLDTAG} ${NEWTAG} -- cosmic-session/justfile
-git diff ${OLDTAG} ${NEWTAG} -- ${DEPS_FILES}
+
+for p in "${Justfiles[@]}"; do
+	echo "${p}/Justfile"
+	cd $p/
+	git --no-pager diff --stat ${OLDTAG} ${NEWTAG} Justfile
+	cd ../
+done
+
+for p in "${Makefiles[@]}"; do
+	echo $p
+	cd $p/
+	git --no-pager diff --stat ${OLDTAG} ${NEWTAG} Makefile
+	cd ../
+done
+
+for p in "${justfiles[@]}"; do
+	echo $p
+	cd $p/
+	git --no-pager diff --stat ${OLDTAG} ${NEWTAG} justfile
+	cd ../
+done
+
