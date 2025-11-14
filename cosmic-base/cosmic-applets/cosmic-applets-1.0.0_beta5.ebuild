@@ -28,6 +28,7 @@ BDEPEND="
 	dev-util/pkgconf
 	media-libs/libpulse
 	media-libs/mesa[opengl]
+	media-video/pipewire
 	sys-apps/dbus
 	virtual/udev
 	x11-libs/libxkbcommon

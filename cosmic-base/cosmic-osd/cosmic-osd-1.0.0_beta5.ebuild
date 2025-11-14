@@ -26,6 +26,7 @@ BDEPEND="
 	dev-libs/wayland
 	dev-util/pkgconf
 	media-libs/libpulse
+	media-video/pipewire
 	virtual/udev
 	x11-libs/libxkbcommon
 "

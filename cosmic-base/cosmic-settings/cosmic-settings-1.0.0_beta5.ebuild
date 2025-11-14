@@ -32,6 +32,7 @@ BDEPEND="
 	media-libs/fontconfig
 	media-libs/freetype
 	media-libs/libpulse
+	media-video/pipewire
 	virtual/udev
 	x11-libs/libxkbcommon
 "

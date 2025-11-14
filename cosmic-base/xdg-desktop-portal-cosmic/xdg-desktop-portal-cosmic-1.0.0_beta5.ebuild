@@ -75,7 +75,7 @@ src_install() {
 		"${D}/usr/lib/systemd/user/${service_name}" || die
 
 	sed "s|@libexecdir@|/usr/libexec|" \
-		"data/${service_name}.in" > \
+		"data/dbus-1/${service_name}.in" > \
 		"${D}/usr/share/dbus-1/services/${service_name}" || die
 
 }
